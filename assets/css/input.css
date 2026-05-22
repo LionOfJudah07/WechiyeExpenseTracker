@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #0d631b;
+    --secondary: #795900;
+    --tertiary: #ab1118;
+    --surface: #f9f9f9;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low: #f0f0f0;
+    --surface-container-highest: #e4e4e4;
+    --on-surface: #1a1c1c;
+    --outline-variant: rgba(26, 28, 28, 0.15);
+    --primary-fixed: #2e7d32;
+  }
+
+  body {
+    @apply bg-surface text-on-surface font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer components {
+  /* No-line rule: Instead of borders, use spacing and background shifts */
+  .card {
+    @apply bg-surface-container-lowest rounded-2xl shadow-ambient p-6 sm:p-8 border-0;
+  }
+  
+  .card-premium {
+    @apply card relative overflow-hidden;
+  }
+  
+  /* 3% opacity geometric SVG pattern in premium cards */
+  .card-premium::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    opacity: 0.03;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="black"/></svg>');
+    background-size: 50px 50px;
+    pointer-events: none;
+    transform: rotate(45deg);
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background-color: rgba(249, 249, 249, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Heritage Divider */
+  .heritage-divider {
+    height: 2px;
+    width: 100%;
+    opacity: 0.2;
+    background-image: url('data:image/svg+xml;utf8,<svg width="40" height="2" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h10v2H0zM15 0h10v2H15zM30 0h10v2h-10z" fill="rgb(26,28,28)"/></svg>');
+    background-repeat: repeat-x;
+    margin: 1.5rem 0;
+  }
+
+  /* CTAs */
+  .btn-primary {
+    @apply inline-flex justify-center rounded-xl bg-cta-gradient px-6 py-3 text-sm font-semibold text-white shadow-ambient hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-opacity;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex justify-center rounded-xl bg-surface-container-highest px-6 py-3 text-sm font-semibold text-on-surface hover:bg-surface-container-low transition-colors;
+  }
+
+  /* Forms */
+  .input-field {
+    @apply block w-full rounded-xl border-0 bg-surface-container-low py-3 px-4 text-on-surface shadow-sm ring-0 placeholder:text-gray-400 focus:bg-surface-container-highest focus:ring-0 sm:text-sm sm:leading-6 transition-colors;
+  }
+}
+
+/* Amharic/Oromigna language context typography */
+html[lang="am"] body, html[lang="or"] body {
+  line-height: 1.8;
+}
